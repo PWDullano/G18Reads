@@ -42,5 +42,11 @@ router.post('/books/:id', function(req, res, next) {
   });
 });
 
+router.post('/books/:id/delete', function (req, res) {
+  Books().where('id', req.params.id).del()
+  .then(function (result) {
+    res.redirect('/books');
+  })
+})
 
 module.exports = router;
