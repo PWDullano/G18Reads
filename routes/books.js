@@ -7,13 +7,13 @@ return knex('books');
 };
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/books', function(req, res, next) {
   Books().then(function(results){
     res.render('books/index', {books:results})
   })
 });
 
-router.get('/new', function(req, res, next) {
+router.get('/books/new', function(req, res, next) {
   res.render('books/new')
 });
 
@@ -23,7 +23,7 @@ router.post('/books', function(req, res, next) {
   });
 });
 
-router.get('/:id', function(req, res, next) {
+router.get('/books/:id', function(req, res, next) {
   Books().where('id', req.params.id).first().then(function(results){
     res.render('books/show', {books:results})
   })
