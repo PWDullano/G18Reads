@@ -3,9 +3,11 @@ extends layout
 block content
   
   div.left
-    img.splashPicture(src='images/author.jpg')
-    h1.subject Authors
+    a(href='/authors')
+      img.splashPicture(src='images/author.jpg')
+      h1.subject Authors
   div.right
-    img.splashPicture(src='images/books.jpg')
-    h1.subject Books
+    a(href='/books')
+      img.splashPicture(src='images/books.jpg')
+      h1.subject Books
     
