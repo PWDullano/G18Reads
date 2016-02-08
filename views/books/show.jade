@@ -19,3 +19,5 @@ block content
       p #{books.description}
       a(href='/books/#{books.id}/edit')
         button Edit
+      form(action='/books/#{books.id}/delete' method='post')
+          input.btnDelete(type='submit' value='Delete')
