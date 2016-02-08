@@ -1,5 +1,11 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  
+  div.left
+    img.splashPicture(src='images/author.jpg')
+    h1.subject Authors
+  div.right
+    img.splashPicture(src='images/books.jpg')
+    h1.subject Books
+    
