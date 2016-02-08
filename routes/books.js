@@ -13,4 +13,10 @@ router.get('/', function(req, res, next) {
   })
 });
 
+router.get('/new', function(req, res, next) {
+  Books().then(function(results){
+    res.render('books/new')
+  })
+});
+
 module.exports = router;

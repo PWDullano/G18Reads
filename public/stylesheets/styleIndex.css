@@ -47,3 +47,15 @@
   float: left;
   border-radius: 5px;
 }
+
+.addBook{
+  color: #BA9604;
+  background-color: black;
+  opacity: .5;
+  text-align: center;
+  position: relative;
+  bottom: 82vh;
+  left: 18.8vw;
+  width: 10vw;
+  border-radius: 5px;
+}

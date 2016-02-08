@@ -10,11 +10,12 @@ block content
     a(href='/books')
       img.splashPictureIndex(src='images/books.jpg')
       h1.subjectIndex Books
-  div.scroller
-    each book in books
-      div.booksIndex
-        img.booksCard(src='#{book.url}')
-        p #{book.title}
-        p #{book.fname_1} #{book.lname_1}, #{book.fname_2} #{book.lname_2} & #{book.fname_3} #{book.lname_3}
-        p #{book.genre}
-        p #{book.description}
+  div.addBook
+    a(href='/books/new') Add a book!
+  each book in books
+    div.booksIndex
+      img.booksCard(src='#{book.url}')
+      p #{book.title}
+      p #{book.fname_1} #{book.lname_1}, #{book.fname_2} #{book.lname_2} & #{book.fname_3} #{book.lname_3}
+      p #{book.genre}
+      p #{book.description}
