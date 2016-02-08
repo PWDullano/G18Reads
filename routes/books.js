@@ -10,7 +10,6 @@ return knex('books');
 router.get('/', function(req, res, next) {
   Books().then(function(results){
     res.render('books/index', {books:results})
-    console.log(results);
   })
 });
 
