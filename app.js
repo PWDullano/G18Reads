@@ -5,6 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+require('dotenv').load();
+var knex = require('./db/knex')
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var books = require('./routes/books');
