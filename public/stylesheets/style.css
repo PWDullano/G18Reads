@@ -2,6 +2,10 @@
   font-family: 'Crimson Text', serif;
 }
 
+a{
+  text-decoration: none;
+}
+
 .staticHeader{
   background-color: black;
   height: 10vh;
