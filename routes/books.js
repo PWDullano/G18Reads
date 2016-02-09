@@ -6,11 +6,18 @@ function Books(){
 return knex('books');
 };
 
+function Authors(){
+  return knex('author');
+}
+
 
 /* GET home page. */
 router.get('/books', function(req, res, next) {
-  Books().then(function(results){
-    res.render('books/index', {books:results})
+  Books().select().then(function(books){
+    Authors().select().then(function(authors){
+      res.render('books/index', {books:books, authors:authors})
+      console.log(authors);
+    })
   })
 });
 
