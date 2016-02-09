@@ -14,10 +14,7 @@ function Authors(){
 /* GET home page. */
 router.get('/books', function(req, res, next) {
   Books().select().then(function(books){
-    Authors().select().then(function(authors){
-      res.render('books/index', {books:books, authors:authors})
-      console.log(authors);
-    })
+    res.render('books/index', {books:books})
   })
 });
 
@@ -26,34 +23,47 @@ router.get('/books/new', function(req, res, next) {
 });
 
 router.post('/books', function(req, res, next) {
-  Books().insert(req.body).then(function(results){
-    res.redirect('/books')
+  var bookFields = {title: req.body.title, genre: req.body.genre, description: req.body.description, url: req.body.url}
+  var fullName = {first_name: req.body.first_name, last_name: req.body.last_name}
+  Books().insert(bookFields).then(function(books){
+    Authors().insert(fullName).then(function(authors){
+      res.redirect('/books')
+    })
   });
 });
 
 router.get('/books/:id', function(req, res, next) {
-  Books().where('id', req.params.id).first().then(function(results){
-    res.render('books/show', {books:results})
+  Books().where('id', req.params.id).first().then(function(books){
+    Authors().where('book_id', req.params.id).then(function(authors){
+    res.render('books/show', {books:books})
+    })
   })
 });
 
 router.get('/books/:id/edit', function(req, res){
-  Books().where('id', req.params.id).first().then(function(result){
-    res.render('books/edit', {books: result})
+  Books().where('id', req.params.id).first().then(function(books){
+    Authors().where('book_id', req.params.id).then(function(authors){
+      res.render('books/edit', {books: books, authors: authors})
+      console.log(authors);
+    })
   })
 })
 
 router.post('/books/:id', function(req, res, next) {
-  Books().where('id', req.params.id).update(req.body)
-  .then(function(results){
-    res.redirect('/books')
+  var bookFields = {title: req.body.title, genre: req.body.genre, description: req.body.description, url: req.body.url}
+  var fullName = {first_name: req.body.first_name, last_name: req.body.last_name, book_id: req.params.id}
+  Books().where('id', req.params.id).update(bookFields).then(function(books){
+    Authors().where('book_id', req.params.id).update(fullName).then(function(authors){
+      res.redirect('/books')
+    })
   });
 });
 
 router.post('/books/:id/delete', function (req, res) {
-  Books().where('id', req.params.id).del()
-  .then(function (result) {
-    res.redirect('/books');
+  Books().where('id', req.params.id).del().then(function (result) {
+    Authors().where('book_id', req.params.id).del().then(function(results){
+      res.redirect('/books');
+    })
   })
 })
 
