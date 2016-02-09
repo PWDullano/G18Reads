@@ -12,29 +12,26 @@ block content
       h1.subjectIndex Books
   div.newContainer
       if books
-        each author in authors
-          h1.newHeader New book
-          form(action='/books/#{books.id}' method='POST')
-            div.form-group
-              label(for="title") Title
-              br
-              input.form-control(type="text" id="title" name='title' value='#{books.title}' placeholder="Book Title")
-            div.form-group
-              label(for="genre") Genre
-              br
-              input.form-control(type="text" id="genre" name='genre' value='#{books.genre}' placeholder="Book Genre")
-            div.form-group
-              label(for="url") Cover Image URL
-              br
-              input.form-control(type="text" id="url" name='url' value='#{books.url}' placeholder="Book Cover")
-            div.form-group
-              label(for="description") Description
-              br
-              input.form-control(type="text" id="description" value='#{books.description}' name='description')
-            div.form-group
-              label(for="first_name") First Author
-              br
-              input.form-control(type="text" id="first_name" name='first_name' value='#{author.first_name}' placeholder='First Name')
-              label(for="last_name")
-              input.form-control(type="text" id="last_name" name='last_name' value='#{author.last_name}' placeholder='Last Name')
-            button.btn.btn-primaryU(type="submit") Submit
+        h1.newHeader New book
+        form(action='/books/#{books.id}' method='POST')
+          div.errors
+            if errors
+              for error in errors
+                p.red= error
+          div.form-group
+            label(for="title") Title
+            br
+            input.form-control(type="text" id="title" name='title' value='#{books.title}' placeholder="Book Title")
+          div.form-group
+            label(for="genre") Genre
+            br
+            input.form-control(type="text" id="genre" name='genre' value='#{books.genre}' placeholder="Book Genre")
+          div.form-group
+            label(for="url") Cover Image URL
+            br
+            input.form-control(type="text" id="url" name='url' value='#{books.url}' placeholder="Book Cover")
+          div.form-group
+            label(for="description") Description
+            br
+            input.form-control(type="text" id="description" value='#{books.description}' name='description')
+          button.btn.btn-primaryU(type="submit") Submit

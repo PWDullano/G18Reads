@@ -51,13 +51,17 @@ router.get('/books/:id/edit', function(req, res){
 })
 
 router.post('/books/:id', function(req, res, next) {
-  var bookFields = {title: req.body.title, genre: req.body.genre, description: req.body.description, url: req.body.url}
-  var fullName = {first_name: req.body.first_name, last_name: req.body.last_name, book_id: req.params.id}
-  Books().where('id', req.params.id).update(bookFields).then(function(books){
-    Authors().where('book_id', req.params.id).update(fullName).then(function(authors){
-      res.redirect('/books')
-    })
-  });
+  var errors = validate(req.body);
+   if(errors.length){
+   Books().where('id', req.params.id).first().then(function (books) {
+   res.render('books/edit', {books:books, errors: errors});
+   })
+
+   }else{
+     Books().where('id', req.params.id).update(req.body).then(function(result){
+       res.redirect('/books');
+   })
+  };
 });
 
 router.post('/books/:id/delete', function (req, res) {

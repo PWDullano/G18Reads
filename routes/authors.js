@@ -50,17 +50,17 @@ router.get('/authors/:id/edit', function(req, res){
 })
 
 router.post('/authors/:id', function(req, res, next) {
-  var bookFields = {title: req.body.title}
-  var fullName = {
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    author_url: req.body.author_url,
-    bio: req.body.bio}
-    Authors().where('id', req.params.id).update(fullName).then(function(authors){
-      Books().where('author_id', req.params.id).update(bookFields).then(function(books){
-      res.redirect('/authors')
-    })
-  });
+  var errors = validate(req.body);
+   if(errors.length){
+   Authors().where('id', req.params.id).first().then(function (authors) {
+   res.render('authors/edit', {authors:authors, errors: errors});
+   })
+
+   }else{
+     Authors().where('id', req.params.id).update(req.body).then(function(result){
+       res.redirect('/authors');
+   })
+  };
 });
 
 router.post('/authors/:id/delete', function (req, res) {
