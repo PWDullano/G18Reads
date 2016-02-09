@@ -4,12 +4,18 @@ module.exports = {
 
   development: {
     client: 'pg',
-    connection: 'postgres://localhost/books'
+    connection: 'postgres://localhost/books',
+    seeds: {
+      directory: './seeds'
+      }
   },
 
   production: {
     client: 'pg',
-    connection: process.env.DATABASE_URL + '?ssl=true'
+    connection: process.env.DATABASE_URL + '?ssl=true',
+    seeds: {
+      directory: './seeds'
+      }
   }
 
 };
