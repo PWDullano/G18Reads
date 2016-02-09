@@ -6,7 +6,9 @@ exports.up = function(knex, Promise) {
     table.text('genre');
     table.text('description');
     table.text('url');
-    table.integer('book_id');
+    table.integer('author_id');
+    table.integer('author2_id');
+    table.integer('author3_id');
   })
 };
 
