@@ -7,8 +7,6 @@ exports.up = function(knex, Promise) {
     table.text('description');
     table.text('url');
     table.integer('author_id');
-    table.integer('author2_id');
-    table.integer('author3_id');
   })
 };
 
