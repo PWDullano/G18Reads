@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var knex = require('../db/knex')
+var validate = require('../lib/validations')
 
 function Books(){
 return knex('books');
@@ -23,14 +24,15 @@ router.get('/books/new', function(req, res, next) {
 });
 
 router.post('/books', function(req, res, next) {
-  var bookFields = {title: req.body.title, genre: req.body.genre, description: req.body.description, url: req.body.url}
-  var fullName = {first_name: req.body.first_name, last_name: req.body.last_name}
-  Books().insert(bookFields).then(function(books){
-    Authors().insert(fullName).then(function(authors){
-      res.redirect('/books')
-    })
-  });
-});
+  var errors = validate(req.body);
+   if(errors.length){
+   res.render('books/new', {info: req.body, errors: errors});
+   }else{
+     Books().insert(req.body).then(function(result){
+       res.redirect('/books');
+  })
+ }
+})
 
 router.get('/books/:id', function(req, res, next) {
   Books().where('id', req.params.id).first().then(function(books){
