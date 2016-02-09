@@ -13,10 +13,10 @@ block content
   div.addBook
     a(href='/books/new') Add a book!
   each book in books
-    div.booksIndex
-      a(href='/books/#{book.id}')
-        img.booksCard(src='#{book.url}')
-        p #{book.title}
-        p #{book.fname_1} #{book.lname_1}, #{book.fname_2} #{book.lname_2} & #{book.fname_3} #{book.lname_3}
-        p #{book.genre}
-        p #{book.description}
+      div.booksIndex
+        a(href='/books/#{book.id}')
+          img.booksCard(src='#{book.url}')
+          p #{book.title}
+          p #{authors.first_name}
+          p #{book.genre}
+          p #{book.description}
