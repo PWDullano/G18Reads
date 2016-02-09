@@ -2,11 +2,17 @@ extends ../layout
 
 block content
 
-  div.booksIndex
+  div.sidebarNav
     a(href='/authors')
       img.splashPictureIndex(src='images/author.jpg')
       h1.subjectIndex Authors
-  div.booksIndex
+  div.sidebarNav
     a(href='/books')
       img.splashPictureIndex(src='images/books.jpg')
       h1.subjectIndex Books
+  each author in authors
+    div.authorIndex
+      a(href='/author/#{author.id}')
+        img.authorCard(src='#{author.author_url}')
+        p #{author.first_name} #{author.last_name}
+        p #{author.bio}
