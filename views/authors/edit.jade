@@ -1,3 +1,37 @@
 extends ../layout
 
 block content
+
+  div.sidebarNav
+    a(href='/authors')
+      img.splashPictureIndex(src='/images/author.jpg')
+      h1.subjectIndex Authors
+  div.sidebarNav
+    a(href='/books')
+      img.splashPictureIndex(src='/images/books.jpg')
+      h1.subjectIndex Books
+  div.newContainer
+    if authors
+      h1.newHeader Edit Author
+      form(action='/authors/#{authors.id}' method='POST')
+        div.form-group
+          label(for="first_name") First Name
+          br
+          input.form-control(type="text" id="first_name" name='first_name' value='#{authors.first_name}' placeholder="First Name")
+        div.form-group
+          label(for="Last Name") Last Name
+          br
+          input.form-control(type="text" id="Last Name" name='last_name' value='#{authors.last_name}' placeholder="Last Name")
+        div.form-group
+          label(for="author_url") Portrait URL
+          br
+          input.form-control(type="text" id="author_url" name='author_url' value='#{authors.author_url}' placeholder="Portrait URL")
+        div.form-group
+          label(for="bio") Biography
+          br
+          input.form-control(type="text" id="bio" name='bio' value='#{authors.bio}')
+        div.form-group
+          label(for="title") Books
+          br
+          input.form-control(type="text" id="title" name='title' placeholder='Book Title')
+        button.btn.btn-primaryU(type="submit") Submit

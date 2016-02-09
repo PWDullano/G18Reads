@@ -1,3 +1,21 @@
 extends ../layout
 
 block content
+
+  div.sidebarNav
+    a(href='/authors')
+      img.splashPictureIndex(src='../images/author.jpg')
+      h1.subjectIndex Authors
+  div.sidebarNav
+    a(href='/books')
+      img.splashPictureIndex(src='../images/books.jpg')
+      h1.subjectIndex Books
+  if authors
+    div.booksIndex
+      img.booksCard(src='#{authors.author_url}')
+      p #{authors.first_name} #{authors.last_name}
+      p #{authors.bio}
+      a(href='/authors/#{authors.id}/edit')
+        button Edit
+      form(action='/authors/#{authors.id}/delete' method='post')
+          input.btnDelete(type='submit' value='Delete')
