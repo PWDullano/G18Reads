@@ -17,5 +17,8 @@ block content
       a(href='/books/#{book.id}')
         img.booksCard(src='#{book.url}')
         p #{book.title}
+          each author in authors
+            if book.id == author.book_id
+              p #{author.first_name} #{author.last_name}
         p #{book.genre}
         p #{book.description}
