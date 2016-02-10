@@ -29,6 +29,12 @@ input{
   opacity: .7;
 }
 
+#bio{
+  width: 80%;
+  border-radius: 5px;
+  opacity: .7;
+}
+
 .btnDelete{
   width: 10%;
   margin-left: 16.5vw;

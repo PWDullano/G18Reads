@@ -33,5 +33,9 @@ block content
         div.form-group
           label(for="bio") Biography
           br
-          input.form-control(type="text" id="bio" name='bio' value='#{authors.bio}')
+          textarea.form-control(rows="5" id="bio" name='bio' value='#{authors.bio}')
+        div.form-group
+          label(for="title") Book Title
+          br
+          input.form-control(type="text" id="title" name='title' placeholder="Book Title")
         button.submit(type="submit") Submit

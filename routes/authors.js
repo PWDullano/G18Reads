@@ -11,6 +11,10 @@ function Books(){
   return knex('books');
 }
 
+function authorBook(){
+  return knex('author_book');
+};
+
 /* GET home page. */
 router.get('/authors', function(req, res, next) {
   Authors().select().then(function(authors){
@@ -25,14 +29,22 @@ router.get('/authors/new', function(req, res, next) {
 });
 
 router.post('/authors', function(req, res, next) {
+  var authorFields = {first_name: req.body.first_name, last_name: req.body.last_name, bio: req.body.bio, author_url: req.body.author_url}
+  var bookFields = {title: req.body.title}
   var errors = validate(req.body);
    if(errors.length){
    res.render('authors/new', {info: req.body, errors: errors});
    }else{
-     Authors().insert(req.body).then(function(result){
-       res.redirect('/authors');
-  })
- }
+     Authors().insert(authorFields).returning('id').then(function(authors){
+       var author_id = authors[0]
+       Books().insert(bookFields).returning('id').then(function(books){
+         var book_id = books[0]
+         authorBook().insert({book_id: book_id, author_id: author_id}).then(function(joined){
+           res.redirect('/authors');
+         })
+      })
+    })
+  }
 })
 
 router.get('/authors/:id', function(req, res, next) {
@@ -50,6 +62,8 @@ router.get('/authors/:id/edit', function(req, res){
 })
 
 router.post('/authors/:id', function(req, res, next) {
+  var authorFields = {first_name: req.body.first_name, last_name: req.body.last_name, bio: req.body.bio, author_url: req.body.author_url}
+  var bookFields = {title: req.body.title}
   var errors = validate(req.body);
    if(errors.length){
    Authors().where('id', req.params.id).first().then(function (authors) {
@@ -57,9 +71,15 @@ router.post('/authors/:id', function(req, res, next) {
    })
 
    }else{
-     Authors().where('id', req.params.id).update(req.body).then(function(result){
-       res.redirect('/authors');
-   })
+     Authors().where('id', req.params.id).first().update(authorFields).returning('id').then(function(authors){
+       var author_id = authors[0]
+       Books().insert(bookFields).returning('id').then(function(books){
+         var book_id = books[0]
+         authorBook().insert({book_id: book_id, author_id: author_id}).then(function(joined){
+           res.redirect('/authors');
+         })
+       })
+    })
   };
 });
 
