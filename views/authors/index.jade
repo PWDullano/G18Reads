@@ -18,7 +18,8 @@ block content
         img.authorCard(src='#{author.author_url}')
         p #{author.first_name} #{author.last_name}
         p #{author.bio}
-          each book in books
-            if author.id == book.author_id
-              p Books written
-              p #{book.title}
+          div.booksWritten
+          p Books written
+            each book in books
+              if author.id == book.author_id
+                p #{book.title}

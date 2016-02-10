@@ -15,10 +15,11 @@ block content
       img.booksCard(src='#{authors.author_url}')
       p #{authors.first_name} #{authors.last_name}
       p #{authors.bio}
-        each book in books
-          if authors.id == book.author_id
-            p Books written
-            p #{book.title}
+        div.booksWritten
+          p Books Written
+            each book in books
+              if authors.id == book.author_id
+                p #{book.title}
       a(href='/authors/#{authors.id}/edit')
         button Edit
       form(action='/authors/#{authors.id}/delete' method='post')
