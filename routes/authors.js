@@ -57,7 +57,9 @@ router.get('/authors/:id', function(req, res, next) {
 
 router.get('/authors/:id/edit', function(req, res){
   Authors().where('id', req.params.id).first().then(function(authors){
-    res.render('authors/edit', {authors: authors})
+    knex.from('books').innerJoin('author_book', 'books.id', 'author_book.book_id').then(function(joined){
+      res.render('authors/edit', {authors: authors, books: joined})
+    })
   })
 })
 
@@ -73,10 +75,12 @@ router.post('/authors/:id', function(req, res, next) {
    }else{
      Authors().where('id', req.params.id).first().update(authorFields).returning('id').then(function(authors){
        var author_id = authors[0]
-       Books().insert(bookFields).returning('id').then(function(books){
-         var book_id = books[0]
-         authorBook().insert({book_id: book_id, author_id: author_id}).then(function(joined){
-           res.redirect('/authors');
+       knex.from('books').innerJoin('author_book', 'books.id', 'author_book.book_id').then(function(authorJoined){
+         Books().where('id', authorJoined.id).update(bookFields).returning('id').then(function(books){
+           var book_id = books[0]
+           authorBook().insert({book_id: book_id, author_id: author_id}).then(function(joined){
+             res.redirect('/authors');
+           })
          })
        })
     })

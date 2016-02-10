@@ -33,9 +33,12 @@ block content
         div.form-group
           label(for="bio") Biography
           br
-          textarea.form-control(rows="5" id="bio" name='bio' value='#{authors.bio}')
+          textarea.form-control(rows="5" id="bio" name='bio' value='#{authors.bio}') '#{authors.bio}'
         div.form-group
-          label(for="title") Book Title
-          br
-          input.form-control(type="text" id="title" name='title' placeholder="Book Title")
+          each book in books
+            if authors.id == book.author_id
+              label(for="title") Book Title
+              br
+              input.form-control(type="text" id="title" name='title' value='#{book.title}' placeholder="Book Title")
+              br
         button.submit(type="submit") Submit
