@@ -60,6 +60,7 @@ router.get('/books/:id/edit', function(req, res){
   Books().where('id', req.params.id).first().then(function(books){
     knex.from('author').innerJoin('author_book', 'author.id', 'author_book.author_id').then(function(joined){
       res.render('books/edit', {books: books, authors: joined})
+      console.log(joined);
     })
   })
 })
@@ -76,10 +77,12 @@ router.post('/books/:id', function(req, res, next) {
    }else{
      Books().where('id', req.params.id).first().update(bookFields).returning('id').then(function(books){
        var book_id = books[0]
-       Authors().insert(authorFields).returning('id').then(function(authors){
+       knex.from('author').innerJoin('author_book', 'author.id', 'author_book.author_id').then(function(joined){
+       Authors().where('id', joined.author_id).update(authorFields).returning('id').then(function(authors){
          var author_id = authors[0]
          authorBook().insert({book_id: book_id, author_id: author_id}).then(function(joined){
            res.redirect('/books');
+         })
          })
        })
      })

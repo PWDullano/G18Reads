@@ -33,12 +33,15 @@ block content
           div.form-group
             label(for="description") Description
             br
-            textarea.form-control(rows="5" id="description" value='#{books.description}' name='description')
+            textarea.form-control(rows="5" id="description" name='description') '#{books.description}'
           div.form-group
-            label(for="first_name") Author
-            br
-            input.form-control(type="text" id="first_name" name='first_name' placeholder="First Name")
-          div.form-group
-            label(for="last_name")
-            input.form-control(type="text" id="last_name" name='last_name' placeholder="Last Name")
+            each author in authors
+              if books.id == author.book_id
+                label(for="first_name") Author
+                br
+                input.form-control(type="text" id="first_name" name='first_name' value='#{author.first_name}' placeholder="First Name")
+                div.form-group
+                label(for="last_name")
+                input.form-control(type="text" id="last_name" name='last_name' value='#{author.last_name}' placeholder="Last Name")
+                br                
           button.submit(type="submit") Submit
