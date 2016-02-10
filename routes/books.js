@@ -46,9 +46,7 @@ router.get('/books/:id', function(req, res, next) {
 
 router.get('/books/:id/edit', function(req, res){
   Books().where('id', req.params.id).first().then(function(books){
-    Authors().where('book_id', req.params.id).then(function(authors){
-      res.render('books/edit', {books: books, authors: authors})
-    })
+    res.render('books/edit', {books: books})
   })
 })
 

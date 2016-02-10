@@ -19,7 +19,8 @@ block content
           p Books Written
             each book in books
               if authors.id == book.author_id
-                p #{book.title}
+                a(href='/books/#{book.book_id}')
+                  p #{book.title}
       a(href='/authors/#{authors.id}/edit')
         button Edit
       form(action='/authors/#{authors.id}/delete' method='post')

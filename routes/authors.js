@@ -39,14 +39,13 @@ router.get('/authors/:id', function(req, res, next) {
   Authors().where('id', req.params.id).first().then(function(authors){
     knex.from('books').innerJoin('author_book', 'books.id', 'author_book.book_id').then(function(joined){
       res.render('authors/show', {authors: authors, books: joined});
-      console.log(joined);
     })
   })
 });
 
 router.get('/authors/:id/edit', function(req, res){
   Authors().where('id', req.params.id).first().then(function(authors){
-    res.render('authors/edit', {books: books, authors: authors})
+    res.render('authors/edit', {authors: authors})
   })
 })
 
