@@ -40,9 +40,9 @@
 }
 
 .booksCard{
-  height: 33vh;
+  height: 30vh;
   width: 15vw;
-  margin: 22px 10px 64px 10px;
+  margin: 22px 10px 85px 10px;
   display: inline-block;
   float: left;
   border-radius: 5px;
