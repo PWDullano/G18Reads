@@ -9,7 +9,11 @@ return knex('books');
 
 function Authors(){
   return knex('author');
-}
+};
+
+function authorBook(){
+  return knex('author_book');
+};
 
 /* GET home page. */
 router.get('/books', function(req, res, next) {
@@ -25,14 +29,22 @@ router.get('/books/new', function(req, res, next) {
 });
 
 router.post('/books', function(req, res, next) {
+  var bookFields = {title: req.body.title, genre: req.body.genre, description: req.body.description, url: req.body.url}
+  var authorFields = {first_name: req.body.first_name, last_name: req.body.last_name}
   var errors = validate(req.body);
    if(errors.length){
    res.render('books/new', {info: req.body, errors: errors});
    }else{
-     Books().insert(req.body).then(function(result){
-       res.redirect('/books');
-  })
- }
+     Books().insert(bookFields).returning('id').then(function(books){
+       var book_id = books[0]
+       Authors().insert(authorFields).returning('id').then(function(authors){
+         var author_id = authors[0]
+         authorBook().insert({book_id: book_id, author_id: author_id}).then(function(joined){
+           res.redirect('/books');
+         })
+       })
+     })
+   }
 })
 
 router.get('/books/:id', function(req, res, next) {
