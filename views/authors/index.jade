@@ -17,10 +17,10 @@ block content
       a(href='/authors/#{author.id}')
         img.authorCard(src='#{author.author_url}')
         p #{author.first_name} #{author.last_name}
-        p #{author.bio}
-          div.booksWritten
+          div.booksWrite
             p Books written
               each book in books
                 if author.id == book.author_id
-                  a(href='/books/#{book.book_id}')
+                  a.booksWritten(href='/books/#{book.book_id}')
                     p #{book.title}
+        p #{author.bio}

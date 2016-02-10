@@ -42,10 +42,14 @@
 .booksCard{
   height: 30vh;
   width: 15vw;
-  margin: 22px 10px 85px 10px;
+  margin: 22px 10px 130px 10px;
   display: inline-block;
   float: left;
   border-radius: 5px;
+}
+
+.booksWritten{
+  text-decoration: underline;
 }
 
 .addBook{
@@ -59,14 +63,6 @@
   width: 10vw;
   border-radius: 5px;
 }
-
-/*.booksWritten{
-  border-radius: 5px;
-  width: 50%;
-  padding-left: 1%;
-  margin-left: 16%;
-  background-color: #232221;
-}*/
 
 .authorIndex{
   color: #BA9604;
