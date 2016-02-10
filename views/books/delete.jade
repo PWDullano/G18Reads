@@ -4,11 +4,11 @@ block content
 
   div.sidebarNav
     a(href='/authors')
-      img.splashPictureIndex(src='../images/author.jpg')
+      img.splashPictureIndex(src='/images/author.jpg')
       h1.subjectIndex Authors
   div.sidebarNav
     a(href='/books')
-      img.splashPictureIndex(src='../images/books.jpg')
+      img.splashPictureIndex(src='/images/books.jpg')
       h1.subjectIndex Books
   if books
     div.booksIndex
@@ -20,7 +20,5 @@ block content
               p #{author.first_name} #{author.last_name}
       p #{books.genre}
       p #{books.description}
-      a(href='/books/#{books.id}/edit')
-        button Edit
-      a(href='/books/#{books.id}/delete')
-        button Delete
+      form(action='/books/#{books.id}/delete' method='post')
+          input.btnDelete(type='submit' value='Delete')
