@@ -63,6 +63,14 @@ router.post('/authors/:id', function(req, res, next) {
   };
 });
 
+router.get('/authors/:id/delete', function (req, res) {
+  Authors().where('id', req.params.id).first().then(function(authors){
+    knex.from('books').innerJoin('author_book', 'books.id', 'author_book.book_id').then(function(joined){
+      res.render('authors/delete', {authors: authors, books: joined});
+    })
+  })
+})
+
 router.post('/authors/:id/delete', function (req, res) {
   Authors().where('id', req.params.id).del().then(function(results){
     res.redirect('/authors');
