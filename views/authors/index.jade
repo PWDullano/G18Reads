@@ -19,8 +19,8 @@ block content
         p #{author.first_name} #{author.last_name}
         p #{author.bio}
           div.booksWritten
-          p Books written
-            each book in books
-              if author.id == book.author_id
-                a(href='/books/#{book.book_id}')
-                  p #{book.title}
+            p Books written
+              each book in books
+                if author.id == book.author_id
+                  a(href='/books/#{book.book_id}')
+                    p #{book.title}
