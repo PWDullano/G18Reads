@@ -15,7 +15,9 @@ function Authors(){
 /* GET home page. */
 router.get('/books', function(req, res, next) {
   Books().select().then(function(books){
-    res.render('books/index', {books:books})
+    knex.from('author').innerJoin('author_book', 'author.id', 'author_book.author_id').then(function(joined){
+      res.render('books/index', {books: books, authors: joined});
+    })
   })
 });
 
@@ -36,8 +38,8 @@ router.post('/books', function(req, res, next) {
 
 router.get('/books/:id', function(req, res, next) {
   Books().where('id', req.params.id).first().then(function(books){
-    Authors().where('book_id', req.params.id).then(function(authors){
-    res.render('books/show', {books:books})
+    knex.from('author').innerJoin('author_book', 'author.id', 'author_book.author_id').then(function(joined){
+      res.render('books/show', {books: books, authors: joined});
     })
   })
 });

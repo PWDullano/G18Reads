@@ -14,6 +14,9 @@ block content
     div.booksIndex
       img.booksCard(src='#{books.url}')
       p #{books.title}
+        each author in authors
+          if books.id == author.book_id
+            p #{author.first_name} #{author.last_name}
       p #{books.genre}
       p #{books.description}
       a(href='/books/#{books.id}/edit')
