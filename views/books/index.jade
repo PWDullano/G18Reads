@@ -16,10 +16,11 @@ block content
     div.booksIndex
       a(href='/books/#{book.id}')
         img.booksCard(src='#{book.url}')
-        p #{book.title}
+        h1 #{book.title}
+        h2 #{book.genre}
+        h3.authorText Authors
           each author in authors
             if book.id == author.book_id
-              a(href='/authors/#{author.author_id}')
-                p #{author.first_name} #{author.last_name}
-        p #{book.genre}
+              a.authorName(href='/authors/#{author.author_id}')
+                p #{author.first_name} #{author.last_name}  
         p #{book.description}
